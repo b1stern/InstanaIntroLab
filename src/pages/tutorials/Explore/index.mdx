@@ -1,52 +1,34 @@
 ---
-title: Section 2 - Explore Instana and the Quote of the Day Application
+title: Section 1 - Explore Instana and the Quote of the Day Application
 description:
 ---
 
 
 <AnchorLinks>
-  <AnchorLink>2-1: Explore kubernetes</AnchorLink>
-  <AnchorLink>2-1: Explore the Infrasture View</AnchorLink>
-  <AnchorLink>2-3: Create an Application Perspective</AnchorLink>
-  <AnchorLink>2-4: Exploring the Application</AnchorLink>
-  <AnchorLink>2-5: Summary</AnchorLink>
+  <AnchorLink>1-1: Explore kubernetes</AnchorLink>
+  <AnchorLink>1-2: Explore the Infrastructure View</AnchorLink>
+  <AnchorLink>1-3: Exploring an Application</AnchorLink>
+  <AnchorLink>1-4: Unbounded Analytics</AnchorLink>
+  <AnchorLink>1-5: Explore Logging</AnchorLink>
+  <AnchorLink>1-6: Summary</AnchorLink>
 </AnchorLinks>
 
 ***
 
 In this portion of the lab, you will explore some key Instana capabilities including monitoring of kubernetes, monitoring of applications, and monitoring of infrastructure.
 
-## 2-1: Explore Kubernetes
+## 1-1: Explore Kubernetes
 
 In this section of the lab, you want to be logged into the thinkdemo virtual machine.  If you are currently logged into the MQ/ACE virtual machine, switch to the other VM.
 
 Open the browser tab for the Instana user interface.
 
-On the left navigation, select "kubernetes"
-  ![](images/kubernetes.png)
+On the left navigation, select **"Platforms"** and then **"kubernetes"**.  Notice that you have the option of selecting other infrastructure providers such as VMware, Power HMC, and zHMC.
+  ![](images/kube.png)
 
-You will see a list of kubernetes clusters.   Look for the Cluster with your student name.  If you don't see your student name, you may need to wait a couple of minutes.
-  ![](images/clusters.png)
+You will see a list of kubernetes clusters.   In this environment, there is an x86, Power, and zLinux kubernetes/OCP Cluster. Select the vader-qotd2 cluster to drill in for more details. 
+  ![](images/qotd-cluster.png)
 
-If you don't see your student name after a couple of minutes, we need to troubleshoot the Instana Agent.  From a terminal window, issue the following command:
-```sh
-oc get pods -n instana-agent
-```
-
-Check to make sure that all pods are running.
-
-If all pods are running, we need examine the logs of one of the pods.
-
-Type:  
-```sh
-oc logs POD_NAME -c instana-agent -n instana-agent
-```
-where **POD_NAME** is one of the pods listed in the previous command.
-
-Assuming that your cluster name shows up properly, click on the link for your student name.
-
-You should see a screen similar to the one below where you can see overall utilization of the kubernetes cluster.
-  ![](images/cluster.png)
 
 Select some of the other tabs to explore the kubernetes monitoring.  We recommend you look at the Events, Nodes, and Pods tabs.  When you select the pods tab, you will see a list of all pods running within the cluster.
 
@@ -58,7 +40,8 @@ Click on one of the links on the left side and drill into the pod utilization de
 
 ***
 
-## 2-2: Explore the Infrastructure View
+
+## 1-2: Explore the Infrastructure View
 
 Next, explore the Infrastructure view.  To do this, click on the **"Infrastructure"** icon on the left side.
   ![](images/yourZone1.png)
@@ -148,76 +131,9 @@ possible to use the back button in your browser.
 
 If time permits at the end of the lab, you can explore some of the other elements within the MQ sensor or other middleware such as ACE.
 
+***
 
-### 2-3: Create an Application Perspective
-**Application Perspectives** allow you to group together a number of different services and endpoints into dashboard that shows the health and performance of a business application.
-In this section, you will create and **Application Persective** for the **Quote of the Day** application that you setup earlier.
-
-
-On the left hand navigation, select **"Applications"**. You will see a screen open up that contains a list of all applications that are defined in the environment.  Initially, this
-this will be small until the students in the class define their applications.  
-  ![](images/addApplication.png)
-
-The next thing you are going to do is define an application.  You will see an **"Add"** button in the bottom right corner. 
-  ![](images/add.png)
-
-Click on the **"Add"** button
-
-A dialog will open with two options.  We'll examine the "Global Smart Alerts" in the Administrative section of this lab.  For now, click on the **"New Application Perspective"** button
-  ![](images/newApplication.png)
-
-When the dialog opens, click the **"Next"** button
-  ![](images/next.png)
-
-On the next screen, click the radio button for **"All downstream services"**.  This will ensure that all of the downstream calls for the application will be monitored in this 
-Application Perspective.
-
-Next, click the **"Add filter"** button.
-
-You will see list of filter options.  Select the option labeled **"Zone"**.
-  ![](images/zoneFilter.png)
-
-
-Then, click on the **"value"** field that is next to the **"Zone"**.  You should see a list of Zones including your student name.  Select your student name or type the name 
-in the entry box.
-  ![](images/zoneStudent6.png)
-
-
-Now, click the **"Add filter"** button and select **"AND"**
-  ![](images/and.png)
-
-
-Select **"Add filter"** again.  Then, in the search field type the word **"endpoint"**.  After typing the word **"endpoint"**, you will see an entry "Endpoint Name".  
-
-Select **"Endpoint Name"**
-  ![](images/endpointFilter.png)
-
-
-A dropdown list will appear.  If it doesn't, click on the **"Value"** field.  In the dropdown list, find and then select the entry for **"GET /health"**.
-  ![](images/getHealth.png)
-
-
-Finally, select the **"="** symbol in between **Endpoint Name** and **GET /health** and select **"!= (does not equal)"** from the drop down list.
-  ![](images/endpointFilter.png)
-
-
-This last filter is going to filter out the **"GET /health"** requests which are just kubernetes health checks and are unrelated to the application transactions.
-
-You screen should now look like this:
-  ![](images/appDefinition.png)
-
-
-Click **"Next"** to go to the next screen.
-  ![](images/next.png)
-
-
-On the next page, give the name of your Application Perspect your student name.  For example, **"student6"**.  Then, click the **"All Calls"** radio button to monitor all calls.  Then, click the **"Create"** button to create your Application Perspective.
-  ![](images/createApp.png)
-
-You have now created an Application Perspective. In the next section, you'll explore the application.
-
-
-### 2-4: Explore the Application
+### 1-3: Explore an Application
 
 After creating the application, your screen should have automatically changed context to show the **studentXXX** Application Perspective that you just defined.
 
@@ -329,13 +245,84 @@ That completes this section of the lab.
 
 ***
 
-## 2-5: Summary
+## 1-4: Unbounded Analytics
+Instana stores data data in datastores like Cassandra, Elasticsearch, and Clickhouse in such a way that it easy to apply **unbounded analytics** to the data and search for key patterns and characteristics.   Let's explore how you can use **unbounded analytics**
 
-In this exercise you have explored some of the key capabilities within Instana.  You explored kubernetes monitoring. You explored the Infrastructure view.  You defined an 
+On the left side, select **Analytics**
+  ![](images/analytics.png)
+
+At the top of the screen, you'll see that there is a dropdown called **Applications -> Calls**.  If you select the dropdown, you'll notice that there are several options available to analyze Application **Calls**, **Traces**, **Websites**, **Mobile Apps**, **Infrastructure** metrics, and **Profiles**.  For this lab, we'll focus on the default selection of **Application Calls**.  In your spare time, feel free to Analyze other types of data.
+  ![](images/calls.png)
+
+By default, you will see a list of **all** application calls.   **Unbounded analytics** provides and opportunity to answer some questions that you might have able the application calls.   Let's look at a scenario that a DBA might be interested in.   A DBA might want to see which SQL queries are taking the longest to run.  This is easy to achieve with **unbounded analytics**.
+
+First, we need to filter the queries to just the database calls.  For this exercise, we'll select all database calls, but we could easily filter further to specific types of databases or specific applications.  On the left side of the screen, select **Types** and then select the **Database** checkbox.  This will filter the calls to just the **Database** calls.
+  ![](images/database.png) 
+
+Next, click on the **Add group** button near the top of the page.
+  ![](images/group.png) 
+
+A drop down list will open with a list of the types of calls.  In the seach bar, type **"statement"** and then select **Database -> Statement**.
+  ![](images/statement.png) 
+
+This will group all of the statements to the unique SQL statements that have been executed within the last hour.  By default, these are sorted based on the number of calls.
+
+Finally, let's sort these statements based on **latency**.
+
+On the middle right of the screen, select **Calls (sum)** and then choose **Latency (mean)** from the dropdown list.
+  ![](images/sortLatency.png)
+
+You can now see a list of the unique SQL statements sorted by the mean latency for that particular SQL statement.
+  ![](images/sortedLatency.png)
+
+If desired, you can expand one of the arrow on the right side to see the individual SQL calls so that you can see whether all calls are slow or whether there are outliers.
+
+And, you can select an individual call and Analyze the transaction in the context of the end-to-end application transaction.
+
+***
+
+## 1-5: Explore Logging
+
+In this section, we will explore Instana's unique approach to log monitoring
+
+Begin by using the breadcumbs at the top of the screen to navigate back to the top level kubernetes cluster view for the vader-qotd2 cluster.
+  ![](images/qotd2.png)
+
+Notice that there are log entries at the cluster level.
+  ![](images/log.png)
+
+Next, click on the Namespace tab and then select the **qotd** namespace.
+  ![](images/qotd-namespace.png)
+
+Notice that there are log entries on the page.   This is a filtered view that only shows the log entries for this namespace.
+  ![](images/analyze-logs.png)
+
+As seen in the preview picture, click on the **view in analyze** to analyze the log entries.  
+
+Next, click on the down arrow next to one of the log entries to view the details.
+  ![](images/examine-log.png)
+
+Here, you can see that Instana treats log data a little differently.  Instana collects log data with context.  You can see that the log entry includes
+- Which kubernetes cluster the log came from
+- Which worker node generated the log entry
+- Which namespace generated the log entry
+- Which deployment
+- Which Host/Worker Node generated the log entry
+- Which container generated the log entry
+- The CPU and Memory utilization of the container
+- In some cases, you'll also see application context including which service and application originated the log entry
+  ![](images/log-entry.png)
+
+
+***
+
+## 1-6: Summary
+
+In this exercise you have explored some of the key capabilities within Instana.  You explored kubernetes monitoring. You explored monitoring within the context of kubernetes.  You explored the Infrastructure view.  You defined an 
 Application Perspective. And you explored the application monitoring details.
 
 
-To continue other portions of the lab, select one of the lab exercises in the upper left corner or select one of the images below.
+To continue to the next section of the lab, select select the **Diagnosing Problems** section in the left size navigation or select the icon below.
 
 
 <Row>
@@ -354,17 +341,4 @@ To continue other portions of the lab, select one of the lab exercises in the up
 </ArticleCard>
 </Column>
 
-<Column colLg={4} colMd={4} noGutterMdLeft>
-<ArticleCard
-    color="dark"
-    subTitle="Administer Instana"
-    title="Learn How to Perform Administrative Tasks in Instana"
-    href="/tutorials/Administration"
-    actionIcon="arrowRight"
-    >
-
-![](images/infrastructure2.png)
-
-</ArticleCard>
-</Column>
 </Row>
