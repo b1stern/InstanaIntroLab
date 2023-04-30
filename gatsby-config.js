@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: "Think Lab 1189:  Observability of a hybrid application using Instana",
-    description: "Think Lab to learn about Instana's observability capabilities in the context of a hybrid application",
+    title: "Introduction to Instana",
+    description: "This lab provides an introduction to Instana's observability capabilities",
     keywords: "gatsby,theme,carbon",
   },
   plugins: [
@@ -24,12 +24,12 @@ module.exports = {
         isSearchEnabled: true,
         repository: {
           baseUrl:
-            'https://github.com/b1stern/InstanaMiddlewareLab',
+            'https://github.com/b1stern/InstanaIntroLab',
           subDirectory: '/',
           branch: 'master'
         },
       },      
     }
   ],
-  pathPrefix: "/InstanaMiddlewareLab"
+  pathPrefix: "/InstanaIntroLab"
 };
