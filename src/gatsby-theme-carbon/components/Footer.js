@@ -10,7 +10,7 @@ const Content = () => (
           <br /> an issue on{' '}
           <a
               style={{ textDecoration: 'underline' }}
-              href="https://github.com/b1stern/InstanaMiddlewareLab/issues/new">
+              href="https://github.com/b1stern/InstanaIntroLab/issues/new">
               GitHub.
           </a>
       </p>
