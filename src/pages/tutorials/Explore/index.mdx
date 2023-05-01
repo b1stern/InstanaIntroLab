@@ -26,8 +26,8 @@ Open the browser tab for the Instana user interface.
 On the left navigation, select **"Platforms"** and then **"kubernetes"**.  Notice that you have the option of selecting other infrastructure providers such as VMware, Power HMC, and zHMC.
   ![](images/kube.png)
 
-You will see a list of kubernetes clusters.   In this environment, there is an x86, Power, and zLinux kubernetes/OCP Cluster. Select the vader-qotd2 cluster to drill in for more details. 
-  ![](images/qotd-cluster.png)
+You will see a list of kubernetes clusters. Select the demo-us-cluster to drill in for more details. 
+  ![](images/selectCluster.png)
 
 
 Select some of the other tabs to explore the kubernetes monitoring.  We recommend you look at the Events, Nodes, and Pods tabs.  When you select the pods tab, you will see a list of all pods running within the cluster.
@@ -44,25 +44,20 @@ Click on one of the links on the left side and drill into the pod utilization de
 ## 1-2: Explore the Infrastructure View
 
 Next, explore the Infrastructure view.  To do this, click on the **"Infrastructure"** icon on the left side.
-  ![](images/yourZone1.png)
+  ![](images/middlewareZone.png)
 
-Look for your student name.  You'll notice that there is a square surrounding two **"towers"** with your student name.  The square is a **"zone"**.  If you recall, you 
-specified a zone name when you performed the yaml based install of the Instana Agent.  The towers contained within the square represents the OpenShift worker node and the 
-virtual machine running ACE and MQ. 
+Look for the zone labeled **IBM Middleware**.  This zone contains two servers.  One is a DataPower appliance and the other is a Linux server that is running IBM ACE and IBM MQ.
 
-If this was a more typically kubernetes environment, you would see more cubes, one for each worker node.  Notice the k8s-bstern2 zone.  This is a cluster with three worker nodes.
 
-If you are unable to find your zone due to the large number of students, you can type your student name in the filter bar at the top
-  ![](images/student6Zone.png) 
-
-Or, you can use the lucene query language in the search bar.
+If you want to search for something like a Host, middleware, or zone, you can use the lucene query language in the search bar.
 - Flyover the filter bar and select **"Entity"**
 - A list will popup. Find and select **"Host"**
 - Once you have select "Host", another list will popup. Select "name"
-- Now, you will see **"entity.host.name:"**.  After the ":", you can do a wildcard search.  For example **"entity.host.name:student*"**.
+- Now, you will see **"entity.host.name:"**.  After the ":", you can do a wildcard search.  For example **"entity.host.name:vader-acemq*"**.  This will allow you
+to search for the server with hostname vader-acemq.
+  ![](images/searchHost.png)
 
-Once you have found your zone, flyover the tower that represents your worker node.  The taller tower is the worker node.  It is taller because there are more discovered entities 
-running on that server.
+Once you have found the host, flyover the tower that represents the vader-acemq node.  
   ![](images/student6Flyover.png) 
 
 You'll notice that a number of components were automatically discovered and are instrumented for monitoring.
@@ -70,7 +65,10 @@ You'll notice that a number of components were automatically discovered and are 
 Next, flyover the other tower.  
   ![](images/student6Flyover2.png) 
 
-This is the ACE and MQ server. You can see the MQ and ACE components along with a discovered JVM, a python app, and more.
+This is the ACE and MQ server. You can see the MQ and ACE components along 2 discovered JVMs, and processes.
+
+Remote the filter at the top of the page by clicking on one of the two X's:
+  ![](images/clearFilter.png) 
 
 In the bottom right corner there are several icons that allow you to organize the Infrastructure view in different ways.  For example, group the servers by OS architecture.
   ![](images/organize.png)
@@ -104,13 +102,22 @@ Use the scroll bar to scroll down. You'll notice that you see each of the types 
 Manager that was discovered.
   ![](images/dashboardScroll.png)
 
-It is possible to click on either the "Open Dashboard" button or the links for the individual entities.  If you clicked, you could navigate to either the Host 
+It is possible to click on either the "Open Dashboard" button or the links for the individual entities such as IBM MQ Queue Manager or JVMs.  If you clicked, it would navigate to either the Host 
 operating system metrics or the specific middleware entity.
 
 Click on the "Open Dashboard" button and we'll examine the Host Agent dashboard.  After you click on the button you'll see a screen that looks like this:
   ![](images/host.png)
 
 You can see fine grained metric data for the Host operating system. Scroll down and explore the other metrics.
+
+In the upper right corner, select the **time selecter** widget and change the time interval to **Last minute**.  
+You'll be able to see granular metrics at 1 second granularity in the UI. This  is one of the key strengths of Instana.
+  ![](images/lastMinute.png)
+
+In the upper right corner, click on the **Live** button to switch to a live view.  You will see data streaming into the system in near-realtime.
+  ![](images/live.png)
+
+Switch back to a 1 hour view using the same button in the upper right corner.
 
 As you scroll down the page, you'll notice a section on the left side of the screen that contains a list of Entity types that were discovered. This is the same list that you 
 saw earlier on the Infrastructure view.
